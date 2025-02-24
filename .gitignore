@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# Django stuff
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# IDEs y editores
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Configuración de entorno
+.env
+docker-compose.override.yml
+
+# Archivos de migraciones compilados
+*/migrations/__pycache__/
+
+# Caché y archivos temporales
+*.swp
+*.swo
+
+# Archivos de Docker
+*.pid
+dist/
+build/
+
+# Archivos específicos de Git
+.gitignore
