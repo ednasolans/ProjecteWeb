@@ -10,3 +10,5 @@ class Ingredients (models.Model):
 
     def __str__(self):
         return self.ingredient_name
+
+
