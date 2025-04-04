@@ -1,15 +1,23 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
 
-
-class Receptes(models.Model):
-    id_recipe = models.AutoField(primary_key=True)
-    name_recipe = models.CharField(max_length=120)
-    description_recipe = models.TextField()
-    instructions_recipe = models.TextField()
-    image_recipe = models.ImageField(upload_to='recipe_images')
-    source = models.CharField(max_length=120)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
 
     def __str__(self):
-        return self.name_recipe
+        return self.name
+
+class Ingredients (models.Model):
+    ingredient_id = models.AutoField(primary_key=True)
+    ingredient_name = models.CharField(max_length=100, unique=True)
+    ingredient_amount = models.IntegerField(max_length=10)
+    unit_mesurement = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.ingredient_name
+
+
