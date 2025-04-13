@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1>Hola, {{ profile.user.first_name }}!</h1>
+    <p><strong>Correu electrònic:</strong> {{ profile.user.email }}</p>
+    <p><strong>Data de registre:</strong> {{ profile.user.date_joined|date:"d/m/Y" }}</p>
+
+    <div style="margin-top: 2rem;">
+        <a href="{% url 'home' %}" class="button">Tornar a l'inici</a>
+    </div>
+</div>
+{% endblock %}

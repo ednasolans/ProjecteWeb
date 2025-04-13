@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Inici{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <h1>Benvingut a Recepeat </h1>
+    <p>Introdueix els ingredients que tens a casa i descobreix receptes que pots fer ara mateix!</p>
+
+    {% if user.is_authenticated %}
+        <div class="user-actions">
+            <a href="{% url 'profile' %}" class="button">Anar al meu perfil</a>
+            <a href="{% url 'logout' %}" class="button">Tancar sessió</a>
+        </div>
+    {% else %}
+        <div class="guest-actions">
+            <a href="{% url 'login' %}" class="button">Iniciar sessió</a>
+            <a href="{% url 'register' %}" class="button">Registrar-se</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+def home(request):
+    return render(request, 'home.html')

@@ -1,0 +1,15 @@
+<h1>Receptes</h1>
+
+{% if receptes %}
+    <ul>
+        {% for recepta in receptes %}
+            <li>
+                <h2>{{ recepta.title }}</h2>
+                <img src="{{ recepta.image }}" alt="{{ recepta.title }}" width="200">
+                <p><a href="https://spoonacular.com/recipes/{{ recepta.id }}" target="_blank">Veure recepta</a></p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No s'han trobat receptes per a aquesta cerca.</p>
+{% endif %}
