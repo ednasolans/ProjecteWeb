@@ -6,7 +6,7 @@ Web application developed with **Django** that allows users to search for recipe
 
 ## 🔗 GitHub Repository
 
-[https://github.com/your-repo-here](https://github.com/your-repo-here) <!-- Replace with your real link -->
+https://github.com/ednasolans/ProjecteWeb
 
 ---
 
