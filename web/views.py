@@ -14,7 +14,7 @@ from django.shortcuts import render
 from .models import Recipe, SavedRecipe
 from .utils import get_recipe_from_api
 
-# Vista per veure les receptes (NO ESTA COMPLETA NI ESTA FETA LA PLANTILLA HTML)
+# Vista per veure les receptes
 def recipe_detail(request, recipe_id):
     recipe = get_recipe_from_api(recipe_id)
     return render(request, 'recipe_detail.html', {'recipe': recipe})
