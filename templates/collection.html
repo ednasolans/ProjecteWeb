@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}La meva col·lecció{% endblock %}
+
+{% block content %}
+    <h2>🍽️ Les meves receptes guardades</h2>
+
+    {% if saved_recipes %}
+        <ul>
+            {% for item in saved_recipes %}
+                <li>
+                    <strong>{{ item.recipe.title }}</strong><br>
+                    <em>{{ item.recipe.description|truncatewords:20 }}</em><br>
+                    <a href="{% url 'recipe_detail' item.recipe.id %}">Veure recepta</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Encara no tens cap recepta guardada.</p>
+    {% endif %}
+{% endblock %}

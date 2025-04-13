@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Projecte Web{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>🍽️ Receptes Online</h1>
+        <nav>
+            <a href="{% url 'inici' %}">Inici</a> |
+            <a href="{% url 'register' %}">Registra't</a> |
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'logout' %}">Logout</a> |
+            <a href="{% url 'profile' %}">Perfil</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Projecte Web Django</p>
+    </footer>
+</body>
+</html>

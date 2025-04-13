@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inici - Receptes</title>
+</head>
+<body>
+    <h1>Benvingut a la pàgina d'inici!</h1>
+
+    <form method="get" action="{% url 'inici' %}">
+        <input type="text" name="q" placeholder="Cerca receptes..." value="{{ query }}">
+        <button type="submit">Cercar</button>
+    </form>
+
+    <h2>Resultats:</h2>
+    {% if receptes %}
+        <ul>
+            {% for recepta in receptes %}
+                <li>{{ recepta.titol }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No s'han trobat receptes.</p>
+    {% endif %}
+</body>
+</html>

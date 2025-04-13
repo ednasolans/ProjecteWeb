@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h2>Perfil de {{ profile.user.first_name }}</h2>
-<p>Email: {{ profile.user.email }}</p>
+{% block title %}El meu perfil{% endblock %}
 
-</body>
-</html>
+{% block content %}
+    <h2>Perfil de {{ profile.user.first_name }}</h2>
+    <p><strong>Nom d'usuari:</strong> {{ profile.user.username }}</p>
+    <p><strong>Email:</strong> {{ profile.user.email }}</p>
+    <p><strong>Nom complet:</strong> {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+
+{% endblock %}
