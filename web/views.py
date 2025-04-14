@@ -51,7 +51,7 @@ def user_login(request):
 # Vista de logout. Aquesta vista y la de login ens la proporciona Django de moment
 def user_logout(request):
     logout(request)
-    return redirect('inici')
+    return redirect('home')
 
 # vista que recupera les receptes que ha guardat l'usuari
 def collection_view(request):
@@ -78,7 +78,7 @@ def home(request):
 def buscar_receptes(request):
     query = request.GET.get('q', '')
     api_url = 'https://api.spoonacular.com/recipes/complexSearch'
-    api_key = 'la_teva_clau_api'  # Aquí hauràs de posar la teva clau d'API
+    api_key = '7d703462d2f842c987df625bab42b119'  # Aquí hauràs de posar la teva clau d'API
 
     if query:
         params = {

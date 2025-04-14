@@ -8,13 +8,24 @@
 </head>
 <body>
 
-<header>
-    <nav>
-        <div class="logo">Recepeat</div>
+<header class="site-header">
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{% url 'home' %}" style="color: white; text-decoration: none;">Recepeat</a>
+        </div>
+
+        <div class="search-bar">
+            <form action="{% url 'buscar_receptes' %}" method="get">
+                <input type="text" name="q" placeholder="Cerca recepta..." required>
+                <button type="submit">🔍</button>
+            </form>
+        </div>
+
         <div class="nav-links">
-            <a href="{% url 'home' %}">Inici</a>
             {% if user.is_authenticated %}
+                <span class="welcome-msg">Hola, {{ request.user.first_name }}!</span>
                 <a href="{% url 'profile' %}">Perfil</a>
+                <a href="{% url 'collection' %}">Col·lecció</a>
                 <a href="{% url 'logout' %}">Tancar sessió</a>
             {% else %}
                 <a href="{% url 'login' %}">Iniciar sessió</a>
@@ -24,11 +35,11 @@
     </nav>
 </header>
 
-<main>
+<main class="main-content">
     {% block content %}{% endblock %}
 </main>
 
-<footer>
+<footer class="site-footer">
     &copy; 2025 Recepeat 🍊
 </footer>
 

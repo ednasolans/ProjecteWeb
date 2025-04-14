@@ -1,15 +1,21 @@
-<h1>Receptes</h1>
+{% extends 'base.html' %}
+
+{% block title %}Resultats de la cerca{% endblock %}
+
+{% block content %}
+<h2>Resultats de la cerca</h2>
 
 {% if receptes %}
     <ul>
         {% for recepta in receptes %}
             <li>
-                <h2>{{ recepta.title }}</h2>
-                <img src="{{ recepta.image }}" alt="{{ recepta.title }}" width="200">
-                <p><a href="https://spoonacular.com/recipes/{{ recepta.id }}" target="_blank">Veure recepta</a></p>
+                <h3>{{ recepta.title }}</h3>
+                <img src="{{ recepta.image }}" alt="{{ recepta.title }}">
+                <a href="{% url 'recipe_detail' recepta.id %}">Veure detall</a>
             </li>
         {% endfor %}
     </ul>
 {% else %}
-    <p>No s'han trobat receptes per a aquesta cerca.</p>
+    <p>No s'han trobat receptes.</p>
 {% endif %}
+{% endblock %}
