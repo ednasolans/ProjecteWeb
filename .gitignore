@@ -24,7 +24,7 @@ staticfiles/
 docker-compose.override.yml
 
 # Archivos de migraciones compilados
-*/migrations/__pycache__/
+*/migrations/
 
 # Caché y archivos temporales
 *.swp
