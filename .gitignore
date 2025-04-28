@@ -19,21 +19,25 @@ staticfiles/
 .idea/
 *.sublime-workspace
 
-# Configuración de entorno
-.env
+# Entorno de Poetry
+.poetry/
+
+# Docker
 docker-compose.override.yml
+
+# Archivos temporales
+*.swp
+*.tmp
+*.bak
+*.swo
 
 # Archivos de migraciones compilados
 */migrations/
 
-# Caché y archivos temporales
-*.swp
-*.swo
-
-# Archivos de Docker
+# Archivos de construccion
 *.pid
 dist/
 build/
 
 # Archivos específicos de Git
-.gitignore
+.git/
