@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.name }}{% endblock %}
+
+{% block content %}
+    <div class="recipe-detail-container">
+        <h1>{{ recipe.name }}</h1>
+
+        {% if recipe.image_url %}
+            <img src="{{ recipe.image_url }}" alt="Imatge de {{ recipe.name }}" class="recipe-image">
+        {% endif %}
+
+        <h2>Descripció</h2>
+        <p>{{ recipe.description|safe }}</p>
+
+        <h2>Ingredients</h2>
+        <ul>
+            {% for ingredient in recipe.ingredients.all %}
+                <li>{{ ingredient.ingredient_name }}
+                    - {{ ingredient.ingredient_amount }} {{ ingredient.unit_mesurement }}</li>
+            {% empty %}
+                <li>No hi ha ingredients disponibles.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Instruccions</h2>
+        <p>{{ recipe.instructions|safe }}</p>
+
+        {% if user.is_authenticated %}
+            <form action="{% url 'store_recipe' recipe.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="button">Guardar recepta</button>
+            </form>
+        {% else %}
+            <p><a href="{% url 'login' %}">Inicia sessió</a> per guardar receptes!</p>
+        {% endif %}
+
+        <div class="back-to-home">
+            <a href="{% url 'home' %}" class="button">Tornar a l'inici</a>
+        </div>
+    </div>
+{% endblock %}

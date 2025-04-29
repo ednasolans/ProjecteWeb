@@ -136,3 +136,23 @@ footer {
     color: #666;
     margin: 0.5rem 0;
 }
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.recipe-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.recipe-image {
+    max-width: 100%;
+    border-radius: 8px;
+}
+

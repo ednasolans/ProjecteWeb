@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Error{% endblock %}
+
+{% block content %}
+    <div class="home-container" style="text-align: center; margin-top: 50px;">
+        <h1>⚠️ Error</h1>
+        <p>{{ message }}</p>
+        <a href="{% url 'home' %}" class="button" style="margin-top: 20px;">Tornar a l'inici</a>
+    </div>
+{% endblock %}

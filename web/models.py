@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
 # Create your models here.
 
 class Profile(models.Model):
@@ -9,7 +10,8 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
 
-class Ingredient (models.Model):
+
+class Ingredient(models.Model):
     ingredient_id = models.AutoField(primary_key=True)
     ingredient_name = models.CharField(max_length=100, unique=True)
     ingredient_amount = models.IntegerField()
@@ -17,6 +19,7 @@ class Ingredient (models.Model):
 
     def __str__(self):
         return self.ingredient_name
+
 
 class Recipe(models.Model):
     name = models.CharField(max_length=255)

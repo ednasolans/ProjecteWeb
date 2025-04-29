@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
@@ -11,12 +11,14 @@ from .models import Recipe, SavedRecipe
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .utils import get_recipe_from_api
 
+
 # Create your views here.
 
 @login_required
 def profile_view(request):
     profile = request.user.profile
     return render(request, 'profile.html', {'profile': profile})
+
 
 # Vista per a la pàgina de registre mitjançant un mètode POST utilitza el formulari
 # del fitxer forms.py per guardar les dades de registre i redirigir a la vista de login
@@ -30,6 +32,7 @@ def register(request):
         form = RegistrationForm()
     return render(request, 'register.html', {'form': form})
 
+
 # Vista de login per poder autenticar-se
 def user_login(request):
     if request.method == 'POST':
@@ -42,22 +45,19 @@ def user_login(request):
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
+
 # Vista de logout.
 def user_logout(request):
     logout(request)
     return redirect('home')
 
+
 # vista que recupera les receptes que ha guardat l'usuari
+@login_required
 def collection_view(request):
-    if not request.user.is_authenticated:
-        # Redirect or return a forbidden response
-        return HttpResponseForbidden("You must be logged in to view this page.")
-
-    # Assuming the user is authenticated, proceed with the query
     saved_recipes = SavedRecipe.objects.filter(user=request.user)
-
-    # Add any other logic here and return the response
     return render(request, 'collection.html', {'saved_recipes': saved_recipes})
+
 
 def home(request):
     query = request.GET.get('q')
@@ -67,6 +67,7 @@ def home(request):
         receptes = Recipe.objects.all()
 
     return render(request, 'home.html', {'receptes': receptes, 'query': query})
+
 
 def buscar_receptes(request):
     query = request.GET.get('q', '')
@@ -105,15 +106,37 @@ def buscar_receptes(request):
             except PageNotAnInteger:
                 page_obj = paginator.get_page(1)
 
-            return render(request, 'recepies.html', {'page_obj': page_obj, 'query': query})
+            return render(request, 'recipes.html', {'page_obj': page_obj, 'query': query})
 
         except requests.exceptions.RequestException as e:
             # En caso de error con la solicitud, muestra un mensaje de error
             print(f"Error al obtener datos de la API: {e}")
-            return render(request, 'recepies.html', {'error': 'Error al obtener recetas de la API.'})
+            return render(request, 'recipes.html', {'error': 'Error al obtener recetas de la API.'})
 
     # Si no hay término de búsqueda, o si no se encuentran resultados, mostramos una vista sin resultados
-    return render(request, 'recepies.html', {'receptes': [], 'query': query})
+    return render(request, 'recipes.html', {'receptes': [], 'query': query})
 
-def guardar_recepta(request):
-    query = request.GET.get('q', '')
+
+def veure_detall_recepta(request, recipe_id):
+    # Obtener la receta desde la base de datos o la API
+    recipe = get_recipe_from_api(recipe_id)
+    if not recipe:
+        return render(request, 'error.html', {'message': 'No s\'ha pogut carregar la recepta.'})
+
+    return render(request, 'recipe_detail.html', {'recipe': recipe})
+
+
+@login_required
+def guardar_recepta(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    # Verificar si ya está guardada
+    saved, created = SavedRecipe.objects.get_or_create(user=request.user, recipe=recipe)
+
+    if created:
+        # Solo si era nueva guardada
+        print("Recepta guardada correctament.")
+    else:
+        print("Aquesta recepta ja està guardada.")
+
+    return redirect('collection')  # o vuelve a 'recipe_detail' si prefieres

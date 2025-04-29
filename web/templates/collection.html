@@ -3,21 +3,24 @@
 {% block title %}La meva col·lecció{% endblock %}
 
 {% block content %}
-<div class="collection-container">
-    <h2>🍽️ Les meves receptes guardades</h2>
+    <div class="collection-container">
+        <h2>🍽️ Les meves receptes guardades</h2>
 
-    {% if saved_recipes %}
-        <ul class="recipe-list">
-            {% for item in saved_recipes %}
-                <li class="recipe-card">
-                    <strong>{{ item.recipe.name }}</strong><br>
-                    <p class="description">{{ item.recipe.description|truncatewords:20 }}</p>
-                    <button type="button">Veure recepta</button>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Encara no tens cap recepta guardada.</p>
-    {% endif %}
-</div>
+        {% if saved_recipes %}
+            <div class="recipes-grid">
+                {% for item in saved_recipes %}
+                    <div class="recipe-card">
+                        {% if item.recipe.image_url %}
+                            <img src="{{ item.recipe.image_url }}" alt="{{ item.recipe.name }}" class="recipe-image">
+                        {% endif %}
+                        <h3>{{ item.recipe.name }}</h3>
+                        <p class="description">{{ item.recipe.description|truncatewords:20 }}</p>
+                        <a href="{% url 'recipe_detail' item.recipe.id %}" class="button">Veure recepta</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Encara no tens cap recepta guardada.</p>
+        {% endif %}
+    </div>
 {% endblock %}
