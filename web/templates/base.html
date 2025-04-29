@@ -11,23 +11,18 @@
 <header class="site-header">
     <nav class="navbar">
         <div class="logo">
-            <a href="{% url 'home' %}" style="color: white; text-decoration: none;">Recepeat</a>
-        </div>
-
-        <div class="search-bar">
-            <form action="{% url 'buscar_receptes' %}" method="get">
-                <input type="text" name="q" placeholder="Cerca recepta..." required>
-                <button type="submit">🔍</button>
-            </form>
+            <a href="{% url 'home' %}" style="color: whitesmoke; text-decoration: none;">Recepeat</a>
         </div>
 
         <div class="nav-links">
             {% if user.is_authenticated %}
                 <span class="welcome-msg">Hola, {{ request.user.first_name }}!</span>
+                <a href="{% url 'home' %}">Buscador</a>
                 <a href="{% url 'profile' %}">Perfil</a>
                 <a href="{% url 'collection' %}">Col·lecció</a>
                 <a href="{% url 'logout' %}">Tancar sessió</a>
             {% else %}
+                <a href="{% url 'home' %}">Buscador</a>
                 <a href="{% url 'login' %}">Iniciar sessió</a>
                 <a href="{% url 'register' %}">Registrar-se</a>
             {% endif %}

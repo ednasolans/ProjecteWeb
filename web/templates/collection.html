@@ -10,9 +10,9 @@
         <ul class="recipe-list">
             {% for item in saved_recipes %}
                 <li class="recipe-card">
-                    <strong>{{ item.recipe.title }}</strong><br>
+                    <strong>{{ item.recipe.name }}</strong><br>
                     <p class="description">{{ item.recipe.description|truncatewords:20 }}</p>
-                    <a href="{% url 'recipe_detail' item.recipe.id %}" class="button">Veure recepta</a>
+                    <button type="button">Veure recepta</button>
                 </li>
             {% endfor %}
         </ul>

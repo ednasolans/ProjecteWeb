@@ -3,20 +3,19 @@
 {% block title %}Inici{% endblock %}
 
 {% block content %}
-<div class="home-container">
-    <h1>Benvingut a Recepeat </h1>
+<div class="login-container">
+    <h1>Benvingut a Recepeat</h1>
     <p>Introdueix els ingredients que tens a casa i descobreix receptes que pots fer ara mateix!</p>
 
-    {% if user.is_authenticated %}
-        <div class="user-actions">
-            <a href="{% url 'profile' %}" class="button">Anar al meu perfil</a>
-            <a href="{% url 'logout' %}" class="button">Tancar sessió</a>
-        </div>
-    {% else %}
-        <div class="guest-actions">
-            <a href="{% url 'login' %}" class="button">Iniciar sessió</a>
-            <a href="{% url 'register' %}" class="button">Registrar-se</a>
-        </div>
-    {% endif %}
+    <!-- Barra de búsqueda -->
+    <div class="search-bar">
+        <form action="{% url 'buscar_receptes' %}" method="get">
+            <label>
+                <input type="text" name="q" placeholder="Cerca recepta..." required>
+            </label>
+            <button type="submit">🔍</button>
+        </form>
+    </div>
+
 </div>
 {% endblock %}

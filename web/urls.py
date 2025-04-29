@@ -9,7 +9,6 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('collection/', views.collection_view, name='collection'),
     path('search/', views.buscar_receptes, name='buscar_receptes'),
-    path('recepta/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
+    #no funciona encara lo de guardar receptes
     #path('guardar/<int:recipe_id>/', views.guardar_recepta, name='guardar_recepta'),
-
 ]

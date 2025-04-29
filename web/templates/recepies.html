@@ -1,21 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %}Resultats de la cerca{% endblock %}
+{% block title %}Cerca de Receptes{% endblock %}
 
 {% block content %}
-<h2>Resultats de la cerca</h2>
+<div class="home-container">
+    <h1>Resultats de la cerca per "{{ query }}"</h1>
 
-{% if receptes %}
-    <ul>
-        {% for recepta in receptes %}
-            <li>
-                <h3>{{ recepta.title }}</h3>
-                <img src="{{ recepta.image }}" alt="{{ recepta.title }}">
-                <a href="{% url 'recipe_detail' recepta.id %}">Veure detall</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No s'han trobat receptes.</p>
-{% endif %}
+    {% if receptes %}
+        <div class="recipes-list">
+            {% for receta in page_obj %}
+                <div class="recipe-item">
+                    <h2>{{ receta.title }}</h2>
+                    <img src="https://spoonacular.com/recipeImages/{{ receta.id }}-480x360.jpg" alt="{{ receta.title }}">
+                    <a href="https://spoonacular.com/recipes/{{ receta.id }}" target="_blank">Veure més</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?q={{ query }}&page=1">&laquo; primera</a>
+                    <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">anterior</a>
+                {% endif %}
+                <span class="current">
+                    Pàgina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?q={{ query }}&page={{ page_obj.next_page_number }}">següent</a>
+                    <a href="?q={{ query }}&page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <p>No s'han trobat receptes per "{{ query }}". Prova una altra cerca.</p>
+    {% endif %}
+</div>
 {% endblock %}

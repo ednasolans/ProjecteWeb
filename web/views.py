@@ -7,17 +7,11 @@ from django.contrib.auth import logout
 from django.http import JsonResponse
 import requests
 from django.http import HttpResponseForbidden
-from .models import Recipe
-# Create your views here.
-
-from django.shortcuts import render
 from .models import Recipe, SavedRecipe
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .utils import get_recipe_from_api
 
-# Vista per veure les receptes
-def recipe_detail(request, recipe_id):
-    recipe = get_recipe_from_api(recipe_id)
-    return render(request, 'recipe_detail.html', {'recipe': recipe})
+# Create your views here.
 
 @login_required
 def profile_view(request):
@@ -48,7 +42,7 @@ def user_login(request):
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
-# Vista de logout. Aquesta vista y la de login ens la proporciona Django de moment
+# Vista de logout.
 def user_logout(request):
     logout(request)
     return redirect('home')
@@ -74,29 +68,52 @@ def home(request):
 
     return render(request, 'home.html', {'receptes': receptes, 'query': query})
 
-#per buscar les receptes amb la api
 def buscar_receptes(request):
     query = request.GET.get('q', '')
     api_url = 'https://api.spoonacular.com/recipes/complexSearch'
-    api_key = '7d703462d2f842c987df625bab42b119'  # Aquí hauràs de posar la teva clau d'API
+    api_key = '7d703462d2f842c987df625bab42b119'  # Aquí debes poner tu clave de API
+
+    # Definir la cantidad de resultados por página
+    results_per_page = 10
 
     if query:
         params = {
             'query': query,
             'apiKey': api_key,
-            'number': 10,  # Nombre de resultats que vols obtenir
+            'number': results_per_page,  # Número de resultados por página
         }
 
-        # Feu la petició a l'API
-        response = requests.get(api_url, params=params)
+        try:
+            # Realizar la solicitud a la API
+            response = requests.get(api_url, params=params)
+            response.raise_for_status()  # Lanza un error si la respuesta no es exitosa
 
-        if response.status_code == 200:
-            # Si la resposta és exitosa, obtenir les dades
+            # Si la respuesta es exitosa, obtener los datos
             receptes_data = response.json()
 
-            # Passar les receptes a la plantilla
+            # Extraer las recetas
             receptes = receptes_data.get('results', [])
-            return render(request, 'recepies.html', {'receptes': receptes})
 
-    # Si no es troben resultats, mostra una vista buida
-    return render(request, 'recepies.html', {'receptes': []})
+            # Para la paginación, usar los resultados y la página actual
+            page_number = request.GET.get('page', 1)
+            paginator = Paginator(receptes, results_per_page)
+
+            try:
+                page_obj = paginator.get_page(page_number)
+            except EmptyPage:
+                page_obj = paginator.get_page(paginator.num_pages)
+            except PageNotAnInteger:
+                page_obj = paginator.get_page(1)
+
+            return render(request, 'recepies.html', {'page_obj': page_obj, 'query': query})
+
+        except requests.exceptions.RequestException as e:
+            # En caso de error con la solicitud, muestra un mensaje de error
+            print(f"Error al obtener datos de la API: {e}")
+            return render(request, 'recepies.html', {'error': 'Error al obtener recetas de la API.'})
+
+    # Si no hay término de búsqueda, o si no se encuentran resultados, mostramos una vista sin resultados
+    return render(request, 'recepies.html', {'receptes': [], 'query': query})
+
+def guardar_recepta(request):
+    query = request.GET.get('q', '')
