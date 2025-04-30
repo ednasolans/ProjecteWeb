@@ -1,5 +1,6 @@
 import requests
 from .models import Recipe, Ingredient
+from django.conf import settings
 
 def get_recipe_from_api(recipe_id):
     recipe = Recipe.objects.filter(id=recipe_id).first()
@@ -7,7 +8,7 @@ def get_recipe_from_api(recipe_id):
         return recipe
 
     api_url = f'https://api.spoonacular.com/recipes/{recipe_id}/information'
-    params = {'apiKey': '7d703462d2f842c987df625bab42b119'}  # <-- Usa aquí tu API KEY
+    params = {'apiKey': settings.SPOONACULAR_API_KEY}  # <-- Usa aquí tu API KEY
     response = requests.get(api_url, params=params)
 
     if response.status_code != 200:
@@ -15,14 +16,10 @@ def get_recipe_from_api(recipe_id):
 
     data = response.json()
 
-    # Verificar si data contiene 'title'
-    if 'title' not in data:
-        return None
-
     # Crear receta si todo está correcto
     recipe = Recipe.objects.create(
         id=recipe_id,
-        name=data['title'],  # <--- Aquí también corriges: tu modelo usa `name`, no `title`
+        name=data['title'],
         description=data.get('summary', ''),
         instructions=data.get('instructions', ''),
         image_url=data.get('image', None),
