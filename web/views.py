@@ -11,6 +11,8 @@ from .models import Recipe, SavedRecipe
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .utils import get_recipe_from_api
 from django.conf import settings
+from .forms import RecipeForm
+
 
 
 # Create your views here.
@@ -18,6 +20,7 @@ from django.conf import settings
 @login_required
 def profile_view(request):
     profile = request.user.profile
+    recipes = Recipe.objects.filter(created_by=request.user)  # Añadimos las recetas creadas por el usuario
     return render(request, 'profile.html', {'profile': profile})
 
 
@@ -130,3 +133,19 @@ def guardar_recepta(request, recipe_id):
         print("Aquesta recepta ja està guardada.")
 
     return redirect('collection')
+
+
+@login_required
+def crear_recepta(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.created_by = request.user  # vinculem la recepta amb l'usuari actual
+            recipe.save()
+            form.save_m2m()  # guarda camps ManyToMany com `ingredients` si és necessari
+            return redirect('recipe_detail', recipe_id=recipe.id)
+    else:
+        form = RecipeForm()
+
+    return render(request, 'web/create_recipe.html', {'form': form})

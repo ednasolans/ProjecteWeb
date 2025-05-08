@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}Perfil{% endblock %}
-
 {% block content %}
-<div class="profile-container">
-    <h1>Hola, {{ profile.user.first_name }}!</h1>
-    <p><strong>Correu electrònic:</strong> {{ profile.user.email }}</p>
-    <p><strong>Data de registre:</strong> {{ profile.user.date_joined|date:"d/m/Y" }}</p>
+  <h2>Perfil de {{ profile.user.username }}</h2>
 
-</div>
+  <h3>Receptes creades</h3>
+  <ul>
+    {% for recipe in recipes %}
+      <li><a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.name }}</a></li>
+    {% endfor %}
+  </ul>
 {% endblock %}

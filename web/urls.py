@@ -11,4 +11,6 @@ urlpatterns = [
     path('search/', views.buscar_receptes, name='buscar_receptes'),
     path('recepta/<int:recipe_id>/', views.veure_detall_recepta, name='recipe_detail'),
     path('guardar_recepta/<int:recipe_id>/', views.guardar_recepta, name='store_recipe'),
+    path('recepta/nova/', views.crear_recepta, name='crear_recepta'),
+    path('recepta/<int:recipe_id>/', views.veure_detall_recepta, name='recipe_detail'),
 ]
