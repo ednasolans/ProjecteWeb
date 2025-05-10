@@ -17,7 +17,6 @@
                         <p class="description">{{ item.recipe.description|truncatewords:20 }}</p>
                         <a href="{% url 'recipe_detail' item.recipe.id %}" class="button">Veure recepta</a>
 
-                        <!-- Botó d'eliminació -->
                         <a href="{% url 'eliminar_recepta_guardada' recipe_id=item.recipe.id %}" class="button delete-button" onclick="return confirm('Estàs segur que vols eliminar aquesta recepta?');">Eliminar</a>
                     </div>
                 {% endfor %}
