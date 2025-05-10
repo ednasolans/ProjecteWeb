@@ -7,6 +7,7 @@ def get_recipe_from_api(recipe_id, user):
     if recipe:
         return recipe
 
+
     api_url = f'https://api.spoonacular.com/recipes/{recipe_id}/information'
     params = {'apiKey': settings.SPOONACULAR_API_KEY}
     response = requests.get(api_url, params=params)
