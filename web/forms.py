@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
+from .models import Recipe
 
 
 class RegistrationForm(forms.ModelForm):
@@ -32,3 +33,8 @@ class RegistrationForm(forms.ModelForm):
                 Profile.objects.create(user=user)
 
         return user
+
+class RecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ['name', 'description', 'ingredients', 'instructions']

@@ -11,6 +11,7 @@ from .models import Recipe, SavedRecipe
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .utils import get_recipe_from_api
 from django.conf import settings
+from .forms import RecipeForm
 
 
 # Create your views here.
@@ -130,3 +131,45 @@ def guardar_recepta(request, recipe_id):
         print("Aquesta recepta ja està guardada.")
 
     return redirect('collection')
+
+
+@login_required
+def crear_recepta(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.created_by = request.user  # vinculem la recepta amb l'usuari actual
+            recipe.save()
+            form.save_m2m()
+            return redirect('recipe_detail', recipe_id=recipe.id)
+    else:
+        form = RecipeForm()
+    return render(request, 'create_recipe.html', {'form': form})
+
+@login_required
+def editar_recepta(request, pk):
+    recepta = get_object_or_404(Recipe, pk=pk, user=request.user)  # només si és de l’usuari
+
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, instance=recepta)
+        if form.is_valid():
+            form.save()
+            return redirect('recipe_detail', pk=recepta.pk)
+    else:
+        form = RecipeForm(instance=recepta)
+
+    return render(request, 'web/editar_recepta.html', {'form': form})
+
+@login_required
+def eliminar_recepta_guardada(request, recipe_id):
+    # Obtenim la recepta guardada per l'usuari
+    saved_recipe = get_object_or_404(SavedRecipe, user=request.user, recipe_id=recipe_id)
+
+    # Eliminem la recepta guardada
+    saved_recipe.delete()
+
+    # Redirigim l'usuari a la vista de la col·lecció de receptes guardades
+    return redirect('collection')
+
+

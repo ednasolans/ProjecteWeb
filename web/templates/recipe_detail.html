@@ -23,6 +23,10 @@
             {% endfor %}
         </ul>
 
+        {% if recipe.user == request.user %}
+            <a href="{% url 'editar_recepta' recipe.pk %}" class="btn btn-primary">Editar recepta</a>
+        {% endif %}
+
         <h2>Instruccions</h2>
         <p>{{ recipe.instructions|safe }}</p>
 
