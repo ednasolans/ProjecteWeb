@@ -112,7 +112,7 @@ def buscar_receptes(request):
 
 
 def veure_detall_recepta(request, recipe_id):
-    recipe = get_recipe_from_api(recipe_id)
+    recipe = get_recipe_from_api(recipe_id, request.user)
     if not recipe:
         return render(request, 'error.html', {'message': 'No s\'ha pogut carregar la recepta.'})
 
@@ -149,13 +149,12 @@ def crear_recepta(request):
 
 @login_required
 def editar_recepta(request, pk):
-    recepta = get_object_or_404(Recipe, pk=pk, user=request.user)  # només si és de l’usuari
-
+    recepta = get_object_or_404(Recipe, pk=pk, created_by=request.user)
     if request.method == 'POST':
         form = RecipeForm(request.POST, instance=recepta)
         if form.is_valid():
             form.save()
-            return redirect('recipe_detail', pk=recepta.pk)
+            return redirect('recipe_detail', recipe_id=recepta.pk)
     else:
         form = RecipeForm(instance=recepta)
 
