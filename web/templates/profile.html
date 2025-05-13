@@ -7,6 +7,6 @@
     <h1>Hola, {{ profile.user.first_name }}!</h1>
     <p><strong>Correu electrònic:</strong> {{ profile.user.email }}</p>
     <p><strong>Data de registre:</strong> {{ profile.user.date_joined|date:"d/m/Y" }}</p>
-    <a href="{% url 'crear_recepta' %}">Crear nova recepta</a>
+    <a href="{% url 'create_recipe' %}">Crear nova recepta</a>
 </div>
 {% endblock %}

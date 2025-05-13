@@ -134,18 +134,19 @@ def guardar_recepta(request, recipe_id):
 
 
 @login_required
-def crear_recepta(request):
+def create_recipe(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             recipe = form.save(commit=False)
-            recipe.created_by = request.user  # vinculem la recepta amb l'usuari actual
+            recipe.created_by = request.user
             recipe.save()
             form.save_m2m()
-            return redirect('recipe_detail', recipe_id=recipe.id)
+            return redirect('recipe_detail', pk=recipe.pk)
     else:
         form = RecipeForm()
     return render(request, 'create_recipe.html', {'form': form})
+
 
 @login_required
 def editar_recepta(request, pk):

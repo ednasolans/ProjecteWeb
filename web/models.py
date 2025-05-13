@@ -27,6 +27,7 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(Ingredient)
     instructions = models.TextField()
     image_url = models.URLField(null=True, blank=True)
+    imatge = models.ImageField(upload_to='recipe_images/', null=True, blank=True)  # per noves receptes
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
 
     def __str__(self):
