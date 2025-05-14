@@ -17,5 +17,5 @@ urlpatterns = [
     path('recepta/<int:pk>/editar/', views.editar_recepta, name='editar_recepta'),
     path('eliminar_recepta_guardada/<int:recipe_id>/', views.eliminar_recepta_guardada,
          name='eliminar_recepta_guardada'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

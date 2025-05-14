@@ -142,7 +142,7 @@ def create_recipe(request):
             recipe.created_by = request.user
             recipe.save()
             form.save_m2m()
-            return redirect('recipe_detail', pk=recipe.pk)
+            return redirect('recipe_detail', recipe_id=recipe.pk)
     else:
         form = RecipeForm()
     return render(request, 'create_recipe.html', {'form': form})
