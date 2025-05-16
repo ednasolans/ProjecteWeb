@@ -8,6 +8,8 @@
 
         {% if recipe.imatge %}
             <img src="{{ recipe.imatge.url }}" alt="Imatge de {{ recipe.name }}" class="recipe-image">
+        {% elif recipe.image_url %}
+            <img src="{{ recipe.image_url }}" alt="Imatge de {{ recipe.name }}" class="recipe-image">
         {% endif %}
 
         <h2>Descripció</h2>

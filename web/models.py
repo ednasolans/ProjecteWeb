@@ -24,7 +24,7 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    ingredients = models.ManyToManyField(Ingredient)
+    ingredients = models.TextField(blank=True, default='')
     instructions = models.TextField()
     image_url = models.URLField(null=True, blank=True)
     imatge = models.ImageField(upload_to='recipe_images/', null=True, blank=True)  # per noves receptes
