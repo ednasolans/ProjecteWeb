@@ -7,17 +7,17 @@
     <h1>Resultats de la cerca per "{{ query }}"</h1>
 
     {% if page_obj %}
-        <div class="recipes-list">
+        <div class="recipes-grid">
             {% for receta in page_obj %}
-                <div class="recipe-item">
-                    <h2>{{ receta.title }}</h2>
-                    <img src="https://spoonacular.com/recipeImages/{{ receta.id }}-480x360.jpg" alt="{{ receta.title }}">
-                    <a href="{% url 'recipe_detail' receta.id %}">Veure més</a>
+                <div class="recipe-card">
+                    <img src="https://spoonacular.com/recipeImages/{{ receta.id }}-480x360.jpg" alt="{{ receta.title }}" class="recipe-image">
+                    <h3>{{ receta.title }}</h3>
+                    <a href="{% url 'recipe_detail' receta.id %}" class="button">Veure recepta</a>
                 </div>
             {% endfor %}
         </div>
 
-        <!-- Paginación -->
+        <!-- Paginació -->
         <div class="pagination">
             <span class="step-links">
                 {% if page_obj.has_previous %}
