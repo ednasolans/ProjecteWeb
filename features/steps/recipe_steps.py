@@ -1,7 +1,7 @@
 import os
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ProjecteWeb.settings')  # Cambia esto por tu módulo settings real
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ProjecteWeb.settings')
 django.setup()
 
 from behave import given, when, then
@@ -29,7 +29,7 @@ def step_impl(context, title, description):
     browser.fill('name', title)
     browser.fill('description', description)
     checkbox = context.browser.find_by_name('ingredients')
-    checkbox[0].check()  # Marca el primero
+    checkbox[0].check()
     checkbox[1].check()
     browser.fill('instructions', 'Bate los huevos. Fríe las patatas. Junta todo.')
     browser.find_by_value('Guardar').click()

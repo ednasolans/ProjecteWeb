@@ -82,6 +82,28 @@ Then, log in at:
 
 ---
 
+## 🧪 Tests
+
+This project includes a set of behavior-driven tests using **Behave**, executed through **Selenium** and **Splinter**. This tests run through **Google Chrome**. You may also need **ChromeDriver** installed and available in your system PATH.
+
+- For running the tests:
+```bash
+  python run_behave_tests.py
+```
+
+This script: 
+
+- Cleans the test database.
+- Creates a test user (user1 / testpass123).
+- Launches Behave to simulate usage of the app in a browser.
+
+Covered scenarios: 
+
+- Creating a new recipe.
+- Editing an existing recipe.
+- Deleting a saved recipe.
+- Verifying that changes are correctly reflected in the interface.
+
 ## 👥 Developers
 
 - Ainhoa Ferradas Romero  
