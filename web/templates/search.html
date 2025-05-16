@@ -5,12 +5,12 @@
 {% block content %}
 <div class="login-container">
     <h1>Cerca receptes</h1>
-    <p>Introdueix ingredients separats per comes (ex: tomàquet, ou, formatge):</p>
+    <p>Introdueix ingredients separats per comes (ex: tomatoes, pasta, eggs):</p>
 
     <div class="search-bar">
         <form action="{% url 'buscar_receptes' %}" method="get">
             <label>
-                <input type="text" name="q" placeholder="Ex: pasta, all, oli..." required>
+                <input type="text" name="q" placeholder="Ex: pasta, flour, broccoli..." required>
             </label>
             <button type="submit">🔍</button>
         </form>
