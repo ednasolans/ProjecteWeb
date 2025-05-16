@@ -84,7 +84,7 @@ Then, log in at:
 
 ## 🧪 Tests
 
-This project includes a set of behavior-driven tests using Behave, executed through Selenium and Splinter. This tests run through Google Chrome. You may also need ChromeDriver installed and available in your system PATH.
+This project includes a set of behavior-driven tests using **Behave**, executed through **Selenium** and **Splinter**. This tests run through **Google Chrome**. You may also need **ChromeDriver** installed and available in your system PATH.
 
 - For running the tests:
 ```bash
