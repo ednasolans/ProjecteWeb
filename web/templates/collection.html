@@ -17,11 +17,13 @@
                         <p class="description">{{ item.recipe.description|truncatewords:20 }}</p>
                         <a href="{% url 'recipe_detail' item.recipe.id %}" class="button">Veure recepta</a>
                         <a href="{% url 'eliminar_recepta_guardada' recipe_id=item.recipe.id %}" class="button delete-button" onclick="return confirm('Estàs segur que vols eliminar aquesta recepta?');">Eliminar</a>
+                        <a href="{% url 'editar_recepta' recipe_id=item.recipe.id %}" class="button">Editar recepta</a>
                     </div>
                 {% endfor %}
             </div>
         {% else %}
             <p>Encara no tens cap recepta guardada.</p>
         {% endif %}
+        <a href="{% url 'create_recipe' %}">Crear nova recepta</a>
     </div>
 {% endblock %}

@@ -149,8 +149,8 @@ def create_recipe(request):
 
 
 @login_required
-def editar_recepta(request, pk):
-    recepta = get_object_or_404(Recipe, pk=pk, created_by=request.user)
+def editar_recepta(request, recipe_id):
+    recepta = get_object_or_404(Recipe, id=recipe_id, created_by=request.user)
     if request.method == 'POST':
         form = RecipeForm(request.POST, instance=recepta)
         if form.is_valid():
@@ -159,17 +159,14 @@ def editar_recepta(request, pk):
     else:
         form = RecipeForm(instance=recepta)
 
-    return render(request, 'web/editar_recepta.html', {'form': form})
+    return render(request, 'edit_recipe.html', {'form': form})
 
 @login_required
 def eliminar_recepta_guardada(request, recipe_id):
-    # Obtenim la recepta guardada per l'usuari
     saved_recipe = get_object_or_404(SavedRecipe, user=request.user, recipe_id=recipe_id)
 
-    # Eliminem la recepta guardada
     saved_recipe.delete()
 
-    # Redirigim l'usuari a la vista de la col·lecció de receptes guardades
     return redirect('collection')
 
 
