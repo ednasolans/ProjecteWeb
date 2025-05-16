@@ -19,8 +19,13 @@ from .forms import RecipeForm
 @login_required
 def profile_view(request):
     profile = request.user.profile
-    return render(request, 'profile.html', {'profile': profile})
-
+    num_guardades = SavedRecipe.objects.filter(user=request.user).count()
+    num_aportades = Recipe.objects.filter(created_by=request.user).count()
+    return render(request, 'profile.html', {
+        'profile': profile,
+        'num_guardades': num_guardades,
+        'num_aportades': num_aportades,
+    })
 
 # Vista per a la pàgina de registre mitjançant un mètode POST utilitza el formulari
 # del fitxer forms.py per guardar les dades de registre i redirigir a la vista de login
@@ -28,7 +33,7 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save_profile()  # <-- Cambia aquí
+            form.save_profile()
             return redirect('login')
     else:
         form = RegistrationForm()
@@ -70,6 +75,8 @@ def home(request):
 
     return render(request, 'home.html', {'receptes': receptes, 'query': query})
 
+def search_view(request):
+    return render(request, 'search.html')
 
 def buscar_receptes(request):
     query = request.GET.get('q', '')
