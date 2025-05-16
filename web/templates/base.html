@@ -17,7 +17,7 @@
         <div class="nav-links">
             {% if user.is_authenticated %}
                 <span class="welcome-msg">Hola, {{ request.user.first_name }}!</span>
-                <a href="{% url 'home' %}">Buscador</a>
+                <a href="{% url 'searcher' %}" >Buscador</a>
                 <a href="{% url 'profile' %}">Perfil</a>
                 <a href="{% url 'collection' %}">Col·lecció</a>
                 <a href="{% url 'logout' %}">Tancar sessió</a>

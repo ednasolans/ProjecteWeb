@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %}Inici{% endblock %}
+{% block title %}Benvingut a Recepeat{% endblock %}
 
 {% block content %}
-<div class="login-container">
-    <h1>Benvingut a Recepeat</h1>
-    <p>Introdueix els ingredients que tens a casa i descobreix receptes que pots fer ara mateix!</p>
+<div class="home-container">
+    <h1>🍊 Benvingut a Recepeat!</h1>
+    <p>Explora receptes, guarda les teves preferides i crea plats deliciosos amb el que tens a casa.</p>
+    <p>Pots trobar les receptes que t'has guardat un cop iniciïs sessió i vagis a col·leció.</p>
+    <p>A més a més pots afegir totes els receptes que vulguis i així tothom podrà fer i gaudir amb les teves receptes!!.</p>
 
-    <!-- Barra de búsqueda -->
-    <div class="search-bar">
-        <form action="{% url 'buscar_receptes' %}" method="get">
-            <label>
-                <input type="text" name="q" placeholder="Cerca recepta..." required>
-            </label>
-            <button type="submit">🔍</button>
-        </form>
-    </div>
-
+    {% if user.is_authenticated %}
+        <a href="{% url 'searcher' %}" class="button">Cerca receptes</a>
+    {% else %}
+        <div class="guest-actions">
+            <a href="{% url 'login' %}" class="button">Inicia sessió</a>
+            <a href="{% url 'register' %}" class="button">Registra't</a>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

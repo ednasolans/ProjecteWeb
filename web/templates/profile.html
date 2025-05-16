@@ -5,7 +5,14 @@
 {% block content %}
 <div class="profile-container">
     <h1>Hola, {{ profile.user.first_name }}!</h1>
-    <p><strong>Correu electrònic:</strong> {{ profile.user.email }}</p>
-    <p><strong>Data de registre:</strong> {{ profile.user.date_joined|date:"d/m/Y" }}</p>
+    
+    <p><strong>🍏 Usuari:</strong> {{ profile.user.username }}</p>
+    <p><strong>📧 Correu electrònic:</strong> {{ profile.user.email }}</p>
+    <p><strong>📆 Data de registre:</strong> {{ profile.user.date_joined|date:"d/m/Y" }}</p>
+
+    <div class="user-stats">
+    <p><strong>Receptes guardades:</strong> {{ num_guardades }}</p>
+    </div>
+
 </div>
 {% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Cerca de receptes{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h1>Cerca receptes</h1>
+    <p>Introdueix ingredients separats per comes (ex: tomàquet, ou, formatge):</p>
+
+    <div class="search-bar">
+        <form action="{% url 'buscar_receptes' %}" method="get">
+            <label>
+                <input type="text" name="q" placeholder="Ex: pasta, all, oli..." required>
+            </label>
+            <button type="submit">🔍</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
