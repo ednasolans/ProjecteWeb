@@ -46,25 +46,24 @@ All within a clean, user-friendly and intuitive interface.
 
 ---
 
-## ▶️ Running the Project
+## ▶️ Running the Project with Docker
 
-### 1. Install dependencies
+### 1. Build the Docker image
 
 ```bash
-  poetry install
+  docker-compose build
 ```
 
 ### 2. Migrate the database
 
 ```bash
-  python manage.py makemigrations
-  python manage.py migrate
+  docker-compose run web python manage.py migrate
 ```
 
-### 3. Start the server
+### 3. Start the app
 
 ```bash
-  python manage.py runserver
+  docker-compose up
 ```
 
 Once the server is running, access the app at:  
@@ -75,7 +74,7 @@ Once the server is running, access the app at:
 First, create a superuser:
 
 ```bash
-  python manage.py createsuperuser
+  docker-compose run web python manage.py createsuperuser
 ```
 
 Then, log in at:  
