@@ -3,34 +3,38 @@
 {% block title %}{{ recipe.name }}{% endblock %}
 
 {% block content %}
-    <div class="recipe-detail-container">
-        <h1>{{ recipe.name }}</h1>
+    <div class="recipe-detail-container" vocab="https://schema.org/" typeof="Recipe">
+
+        <h1 property="name">{{ recipe.name }}</h1>
 
         {% if recipe.imatge %}
-            <img src="{{ recipe.imatge.url }}" alt="Imatge de {{ recipe.name }}" class="recipe-image">
+            <img src="{{ recipe.imatge.url }}" alt="Imatge de {{ recipe.name }}" class="recipe-image" property="image">
         {% elif recipe.image_url %}
-            <img src="{{ recipe.image_url }}" alt="Imatge de {{ recipe.name }}" class="recipe-image">
+            <img src="{{ recipe.image_url }}" alt="Imatge de {{ recipe.name }}" class="recipe-image" property="image">
         {% endif %}
 
         <h2>Descripció</h2>
-        <p>{{ recipe.description|safe }}</p>
+        <p property="description">{{ recipe.description|safe }}</p>
 
         <h2>Ingredients</h2>
         <ul>
             {% for ingredient in recipe.ingredients.all %}
-                <li>{{ ingredient.ingredient_name }}
-                    - {{ ingredient.ingredient_amount }} {{ ingredient.unit_mesurement }}</li>
+                <li property="recipeIngredient">
+                    {{ ingredient.ingredient_name }}
+                    - {{ ingredient.ingredient_amount }} {{ ingredient.unit_mesurement }}
+                </li>
             {% empty %}
                 <li>No hi ha ingredients disponibles.</li>
             {% endfor %}
         </ul>
+
 
         {% if recipe.user == request.user %}
             <a href="{% url 'editar_recepta' recipe.pk %}" class="btn btn-primary">Editar recepta</a>
         {% endif %}
 
         <h2>Instruccions</h2>
-        <p>{{ recipe.instructions|safe }}</p>
+        <p property="recipeInstructions">{{ recipe.instructions|safe }}</p>
 
         {% if user.is_authenticated %}
             <form action="{% url 'store_recipe' recipe.id %}" method="post">

@@ -11,9 +11,9 @@ from web.models import Recipe, SavedRecipe
 
 # Elimina los datos existentes (opcional)
 print("🧹 Limpiando base de datos...")
-User.objects.exclude(is_superuser=True).delete()
 Recipe.objects.all().delete()
 SavedRecipe.objects.all().delete()
+User.objects.exclude(is_superuser=True).delete()
 
 # Crea usuarios de prueba
 print("👤 Creando usuario de prueba...")
