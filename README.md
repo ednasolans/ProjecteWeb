@@ -33,6 +33,7 @@ All within a clean, user-friendly and intuitive interface.
 - ✅ Custom styling with CSS and responsive layout
 - ✅ Dockerized project (`Dockerfile`, `docker-compose.yml`)
 - ✅ Follows 12-factor app principles
+- ✅ RDFa markup addded on recipe_detail.html 
 
 ---
 
@@ -40,7 +41,6 @@ All within a clean, user-friendly and intuitive interface.
 
 - **External API:** The Spoonacular API was chosen to access a rich and well-structured recipe database.
 - **User Experience:** The design focuses on easy and intuitive navigation, with quick access to key functionalities.
-- **Code Modularity:** Logic is organized into separate Django apps to improve maintainability and scalability.
 - **Security:** Basic validation and access control mechanisms were implemented for user management.
 - **Containers:** Docker was used to ensure the project is portable and easy to run on any system.
 
