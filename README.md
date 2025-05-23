@@ -91,6 +91,24 @@ This project includes a set of behavior-driven tests using **Behave**, executed 
   python run_behave_tests.py
 ```
 
+### If you want to run the tests on the Docker container:
+
+- For entering the docker console:
+```bash
+  docker exec -it <container-id> bash
+```
+
+Note: to see the container id you can use
+
+```bash
+  docker ps
+```
+
+- For running the tests:
+```bash
+  python run_behave_tests.py
+```
+
 This script: 
 
 - Cleans the test database.
