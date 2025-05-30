@@ -54,13 +54,19 @@ All within a clean, user-friendly and intuitive interface.
   docker-compose build
 ```
 
-### 2. Migrate the database
+### 2. Make migrations files
+
+```bash
+  docker-compose run web python manage.py makemigrations
+```
+
+### 3. Migrate the database
 
 ```bash
   docker-compose run web python manage.py migrate
 ```
 
-### 3. Start the app
+### 4. Start the app
 
 ```bash
   docker-compose up
@@ -69,7 +75,7 @@ All within a clean, user-friendly and intuitive interface.
 Once the server is running, access the app at:  
 [http://localhost:8000](http://localhost:8000)
 
-### 4. Access the admin panel
+### 5. Access the admin panel
 
 First, create a superuser:
 
